@@ -89,3 +89,34 @@ close.addEventListener('click', () => {
   })
 })
 }, 8000);
+
+
+/* Tooltips */
+tippy('[infolocation]', {
+        content: "Name of the place, example:  La Paz, Arco Isis, Granja Tzikin. If it's the same as the the previous field, leave it empty"
+      });
+      
+tippy('[infodescription]', {
+        content: "700 characters maximum.<br> To count characters: https://wordcounter.net/",
+      	allowHTML: true,
+      });
+      
+tippy('[infoemail]', {
+        content: 'If email and phone are left empty, your account email with be displayed',
+      });
+      
+tippy('[infourl]', {
+        content: 'It needs to be a URL',
+      });
+      
+tippy('[infoprice]', {
+        content: 'Only number, If free write 0, the Q sign will be added automatically. If there is no price leave the field empty',
+      });      
+
+tippy('[infothumbnail]', {
+        content: '1 image only with a maximum size of 200kb, the perfect dimensions are 300 x 450',
+      });
+      
+tippy('[infoimages]', {
+        content: 'Up to 5 images with a maximum size of 500kb each, the perfect dimensions are 1000 x 1000', 
+      });  
