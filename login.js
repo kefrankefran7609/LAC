@@ -62,7 +62,7 @@ document.querySelectorAll('[input]').forEach((input) => {
       const date = new Date().setMonth(new Date().getMonth() + 1)
       document.cookie = `${name}=${token}; expires=${date}; path=/; domain=lake-atitlan-community.webflow.io`
       // if authentication is not successful, display error message  
-    } else document.querySelector('[invalidfields]').classList.add('show'); setTimeout(() => {querySelector('[invalidfields]').classList.remove('show')}, 3000)
+    } else document.querySelector('[invalidfields]').classList.add('show'); setTimeout(() => {document.querySelector('[invalidfields]').classList.remove('show')}, 3000)
     } catch(error){
     console.log('error:', error);
     throw error;
