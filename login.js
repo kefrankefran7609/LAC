@@ -32,10 +32,13 @@ document.querySelectorAll('[input]').forEach((input) => {
     document.querySelector('[email]').classList.remove('empty'); 
     document.querySelector('[password]').classList.remove('empty'); 
     if(document.querySelector('[email]').value && document.querySelector('[password]').value) loginUser();
-    else if(!document.querySelector('[email]').value){
+    else{
+    if(!document.querySelector('[email]').value){
     document.querySelector('[email]').classList.add('empty'); document.querySelector('[emptyfields]').classList.add('show'); setTimeout(() => document.querySelector('[emptyfields]').classList.remove('show'), 3000);
-    } else if (!document.querySelector('[password]').value){
+    } 
+    if (!document.querySelector('[password]').value){
     document.querySelector('[password]').classList.add('empty'); document.querySelector('[emptyfields]').classList.add('show'); setTimeout(() => document.querySelector('[emptyfields]').classList.remove('show'), 3000);
+    }
     }
   })
 
@@ -61,6 +64,7 @@ document.querySelectorAll('[input]').forEach((input) => {
       const token = encodeURIComponent(data.authToken)
       const date = new Date().setMonth(new Date().getMonth() + 1)
       document.cookie = `${name}=${token}; expires=${date}; path=/; domain=lake-atitlan-community.webflow.io`
+      location.href = "https://lake-atitlan-community.webflow.io/tablero"
       // if authentication is not successful, display error message  
     } else document.querySelector('[invalidfields]').classList.add('show'); setTimeout(() => {document.querySelector('[invalidfields]').classList.remove('show')}, 3000)
     } catch(error){
