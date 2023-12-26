@@ -65,7 +65,7 @@ document.querySelectorAll('[input]').forEach((input) => {
       const currentDate = new Date();
       currentDate.setMonth(currentDate.getMonth() + 1);
       document.cookie = `${name}=${token}; expires=${currentDate}; path=/; domain=lake-atitlan-community.webflow.io`
-      location.href = "https://lake-atitlan-community.webflow.io/tablero"
+      location.href = "/tablero"
       // if authentication is not successful, display error message  
     } else document.querySelector('[invalidfields]').classList.add('show'); setTimeout(() => {document.querySelector('[invalidfields]').classList.remove('show')}, 3000)
     } catch(error){
