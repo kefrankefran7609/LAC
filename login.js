@@ -62,8 +62,9 @@ document.querySelectorAll('[input]').forEach((input) => {
     if(res.status === 200){
       const name = encodeURIComponent("lacToken");
       const token = encodeURIComponent(data.authToken)
-      const date = new Date().setMonth(new Date().getMonth() + 1)
-      document.cookie = `${name}=${token}; expires=${date}; path=/; domain=lake-atitlan-community.webflow.io`
+      const currentDate = new Date();
+      currentDate.setMonth(currentDate.getMonth() + 1);
+      document.cookie = `${name}=${token}; expires=${currentDate}; path=/; domain=lake-atitlan-community.webflow.io`
       location.href = "https://lake-atitlan-community.webflow.io/tablero"
       // if authentication is not successful, display error message  
     } else document.querySelector('[invalidfields]').classList.add('show'); setTimeout(() => {document.querySelector('[invalidfields]').classList.remove('show')}, 3000)
