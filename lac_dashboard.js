@@ -433,28 +433,34 @@ document.querySelectorAll('input[hoursstart], input[hoursend]').forEach(input =>
 var thumb
 document.querySelectorAll('input[uploadthumbnail]').forEach(input => {
   input.addEventListener('change', (ev) => {
-    let reader = new FileReader()
+    console.log(ev.target.files[0])
+    resizeFile(ev, "thumb", 450, 0.7)
+  });
+});
+
+function resizeFile(ev, fileName, widthh, quality){
+  console.log(ev, fileName, widthh, quality)
+let reader = new FileReader()
+    reader.readAsDataURL(ev.target.files[0])
     reader.onload = (event) => {
       let image_url = event.target.result
       let image = new Image()
       image.src = image_url
-      let width = 600
       image.onload = (e) => {
         let canvas = document.createElement("canvas")
-        let ratio = width / e.target.width
-        canvas.width = width
+        let ratio = widthh / e.target.width
+        canvas.width = widthh
         canvas.height = e.target.height * ratio
         const context = canvas.getContext("2d")
         context.drawImage(image, 0, 0, canvas.width, canvas.height)
-        let new_image_url = context.canvas.toDataURL("image/webp", 0.8)
-        urlToFile(new_image_url)
+        let new_image_url = context.canvas.toDataURL("image/png", quality)
+        urlToFile(new_image_url, fileName)
       };
     };
-    reader.readAsDataURL(ev.target.files[0])
-  });
-});
 
-let urlToFile = (url) => {
+
+
+let urlToFile = (url, fileName) => {
   let arr = url.split(",")
   let mime = arr[0].match(/:(.*?);/)[1]
   let data = arr[1]
@@ -466,21 +472,22 @@ let urlToFile = (url) => {
   }
   let file = new File([dataArr], 'File.png', {type: mime})
   console.log(file)
-  createImage(file, "thumb")
-};
+  createImage(file, fileName)
+}
+}
 
 /* Upload image 1 */
 var image1
 document.querySelectorAll('input[uploadimage1]').forEach(btn => {
-  btn.addEventListener('change', (e) => {
-    createImage(e.target.files[0], "image1")
+  btn.addEventListener('change', (ev) => {
+    resizeFile(ev, "image1", 800, 0.10)
   })
 })
 
 /* Upload image 2 */
 var image2
 document.querySelectorAll('input[uploadimage2]').forEach(btn => {
-  btn.addEventListener('change', (e) => {
+  btn.addEventListener('change', (ev) => {
     createImage(e.target.files[0], "image2")
   })
 })
@@ -488,7 +495,7 @@ document.querySelectorAll('input[uploadimage2]').forEach(btn => {
 /* Upload image 3 */
 var image3
 document.querySelectorAll('input[uploadimage3]').forEach(btn => {
-  btn.addEventListener('change', (e) => {
+  btn.addEventListener('change', (ev) => {
     createImage(e.target.files[0], "image3")
   })
 })
@@ -496,7 +503,7 @@ document.querySelectorAll('input[uploadimage3]').forEach(btn => {
 /* Upload image 4 */
 var image4
 document.querySelectorAll('input[uploadimage4]').forEach(btn => {
-  btn.addEventListener('change', (e) => {
+  btn.addEventListener('change', (ev) => {
     createImage(e.target.files[0], "image4")
   })
 })
@@ -519,10 +526,10 @@ async function createImage(file, type, i){
       const data = await res.json()
       console.log(data)
       
-      // Create index because ther is a problem with keeping the index of sync function
+      // Create index because there is a problem with keeping the index of sync function
       const pop = document.querySelector('.popup.is--create.show')
       const i = Array.from(document.querySelectorAll('[createpopup]')).indexOf(pop)
-      const sizeTips = document.querySelectorAll('[uploadsizetips]')
+      //const sizeTips = document.querySelectorAll('[uploadsizetips]')
       for (var d = 0; d < 10; d++){
         if(type == "thumb"){       
           if(data.size < 300001) {
