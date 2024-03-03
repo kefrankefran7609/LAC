@@ -438,7 +438,7 @@ document.querySelectorAll('input[uploadthumbnail]').forEach(input => {
       let image_url = event.target.result
       let image = new Image()
       image.src = image_url
-      let width = 800
+      let width = 600
       image.onload = (e) => {
         let canvas = document.createElement("canvas")
         let ratio = width / e.target.width
