@@ -1,4 +1,4 @@
-console.log("hey dashboardss")
+console.log("hey dashboardyy")
 
 /***** Authentication *****/ 
 window.onload = async () => {
@@ -431,11 +431,43 @@ document.querySelectorAll('input[hoursstart], input[hoursend]').forEach(input =>
 
 /* Upload thumbnail */
 var thumb
-document.querySelectorAll('input[uploadthumbnail]').forEach(btn => { 
-  btn.addEventListener('change', (e) => {
-    createImage(e.target.files[0], "thumb")
+document.querySelectorAll('input[uploadthumbnail]').forEach(input => {
+  input.addEventListener('change', (ev) => {
+    let reader = new FileReader()
+    reader.onload = (event) => {
+      let image_url = event.target.result
+      let image = new Image()
+      image.src = image_url
+      let width = 800
+      image.onload = (e) => {
+        let canvas = document.createElement("canvas")
+        let ratio = width / e.target.width
+        canvas.width = width
+        canvas.height = e.target.height * ratio
+        const context = canvas.getContext("2d")
+        context.drawImage(image, 0, 0, canvas.width, canvas.height)
+        let new_image_url = context.canvas.toDataURL("image/webp", 0.9)
+        urlToFile(new_image_url)
+      };
+    };
+    reader.readAsDataURL(ev.target.files[0])
   });
-})
+});
+
+let urlToFile = (url) => {
+  let arr = url.split(",")
+  let mime = arr[0].match(/:(.*?);/)[1]
+  let data = arr[1]
+  let dataString = atob(data)
+  let n = dataString.length
+  let dataArr = new Uint8Array(n)
+  while (n--) {
+    dataArr[n] = dataString.charCodeAt(n)
+  }
+  let file = new File([dataArr], 'File.png', {type: mime})
+  console.log(file)
+  createImage(file, "thumb")
+};
 
 /* Upload image 1 */
 var image1
