@@ -446,7 +446,7 @@ document.querySelectorAll('input[uploadthumbnail]').forEach(input => {
         canvas.height = e.target.height * ratio
         const context = canvas.getContext("2d")
         context.drawImage(image, 0, 0, canvas.width, canvas.height)
-        let new_image_url = context.canvas.toDataURL("image/webp", 0.75)
+        let new_image_url = context.canvas.toDataURL("image/webp", 0.9)
         urlToFile(new_image_url)
       };
     };
