@@ -1,4 +1,4 @@
-console.log("hey dashboardyy")
+console.log("hey dashboardses")
 
 /***** Authentication *****/ 
 window.onload = async () => {
@@ -433,8 +433,10 @@ document.querySelectorAll('input[hoursstart], input[hoursend]').forEach(input =>
 var thumb
 document.querySelectorAll('input[uploadthumbnail]').forEach(input => {
   input.addEventListener('change', (ev) => {
-    console.log(ev.target.files[0])
-    resizeFile(ev, "thumb", 450, 0.7)
+    if (ev.target.files[0].size > 4000000) resizeFile(ev, "thumb", 450, 0.8)
+    else if (ev.target.files[0].size > 2500000) resizeFile(ev, "thumb", 450, 0.9)
+    else if (ev.target.files[0].size > 150000) resizeFile(ev, "thumb", 450, 1)
+    else createImage(ev.target.files[0], "thumb")
   });
 });
 
@@ -453,7 +455,7 @@ let reader = new FileReader()
         canvas.height = e.target.height * ratio
         const context = canvas.getContext("2d")
         context.drawImage(image, 0, 0, canvas.width, canvas.height)
-        let new_image_url = context.canvas.toDataURL("image/png", quality)
+        let new_image_url = context.canvas.toDataURL("image/jpeg", quality)
         urlToFile(new_image_url, fileName)
       };
     };
@@ -470,7 +472,7 @@ let urlToFile = (url, fileName) => {
   while (n--) {
     dataArr[n] = dataString.charCodeAt(n)
   }
-  let file = new File([dataArr], 'File.png', {type: mime})
+  let file = new File([dataArr], 'File.jpeg', {type: mime})
   console.log(file)
   createImage(file, fileName)
 }
@@ -480,7 +482,12 @@ let urlToFile = (url, fileName) => {
 var image1
 document.querySelectorAll('input[uploadimage1]').forEach(btn => {
   btn.addEventListener('change', (ev) => {
-    resizeFile(ev, "image1", 800, 0.10)
+    if (ev.target.files[0].size > 4000000) resizeFile(ev, "image1", 1080, 0.80)
+    else if (ev.target.files[0].size > 2000000) resizeFile(ev, "image1", 1080, 0.85)
+    else if (ev.target.files[0].size > 1200000) resizeFile(ev, "image1", 1080, 0.87)
+    else if (ev.target.files[0].size > 400000) resizeFile(ev, "image1", 1080, 0.9)
+    else if (ev.target.files[0].size > 250000) resizeFile(ev, "image1", 1080, 1)
+    else createImage(ev.target.files[0], "image1")
   })
 })
 
@@ -488,7 +495,12 @@ document.querySelectorAll('input[uploadimage1]').forEach(btn => {
 var image2
 document.querySelectorAll('input[uploadimage2]').forEach(btn => {
   btn.addEventListener('change', (ev) => {
-    createImage(e.target.files[0], "image2")
+    if (ev.target.files[0].size > 4000000) resizeFile(ev, "image2", 1080, 0.80)
+    else if (ev.target.files[0].size > 2000000) resizeFile(ev, "image2", 1080, 0.85)
+    else if (ev.target.files[0].size > 1200000) resizeFile(ev, "image2", 1080, 0.87)
+    else if (ev.target.files[0].size > 400000) resizeFile(ev, "image2", 1080, 0.9)
+    else if (ev.target.files[0].size > 250000) resizeFile(ev, "image2", 1080, 1)
+    else createImage(ev.target.files[0], "image2")
   })
 })
 
@@ -496,7 +508,12 @@ document.querySelectorAll('input[uploadimage2]').forEach(btn => {
 var image3
 document.querySelectorAll('input[uploadimage3]').forEach(btn => {
   btn.addEventListener('change', (ev) => {
-    createImage(e.target.files[0], "image3")
+    if (ev.target.files[0].size > 4000000) resizeFile(ev, "image3", 1080, 0.80)
+    else if (ev.target.files[0].size > 2000000) resizeFile(ev, "image3", 1080, 0.85)
+    else if (ev.target.files[0].size > 1200000) resizeFile(ev, "image3", 1080, 0.87)
+    else if (ev.target.files[0].size > 400000) resizeFile(ev, "image3", 1080, 0.9)
+    else if (ev.target.files[0].size > 250000) resizeFile(ev, "image3", 1080, 1)
+    else createImage(ev.target.files[0], "image3")
   })
 })
 
@@ -504,7 +521,12 @@ document.querySelectorAll('input[uploadimage3]').forEach(btn => {
 var image4
 document.querySelectorAll('input[uploadimage4]').forEach(btn => {
   btn.addEventListener('change', (ev) => {
-    createImage(e.target.files[0], "image4")
+    if (ev.target.files[0].size > 4000000) resizeFile(ev, "image4", 1080, 0.80)
+    else if (ev.target.files[0].size > 2000000) resizeFile(ev, "image4", 1080, 0.85)
+    else if (ev.target.files[0].size > 1200000) resizeFile(ev, "image4", 1080, 0.87)
+    else if (ev.target.files[0].size > 400000) resizeFile(ev, "image4", 1080, 0.9)
+    else if (ev.target.files[0].size > 250000) resizeFile(ev, "image4", 1080, 1)
+    else createImage(ev.target.files[0], "image4")
   })
 })
 
@@ -539,7 +561,7 @@ async function createImage(file, type, i){
           document.querySelectorAll('[thumbsuccess]')[i].classList.add('show')
           thumb = JSON.stringify(data)
           break;
-          } else document.querySelectorAll('[thumbfail]')[i].classList.add('show'); document.querySelectorAll('[thumbsuccess]')[i].classList.remove('show'); sizeTips[i].classList.add('show'); break;
+          } else document.querySelectorAll('[thumbfail]')[i].classList.add('show'); document.querySelectorAll('[thumbsuccess]')[i].classList.remove('show'); /*sizeTips[i].classList.add('show');*/ break;
         }
         if(type == "image1") {
           if(data.size < 600001) {
@@ -549,7 +571,7 @@ async function createImage(file, type, i){
             document.querySelectorAll('[image1success]')[i].classList.add('show')
             image1 = JSON.stringify(data)
             break;
-            } else document.querySelectorAll('[image1fail]')[i].classList.add('show'); document.querySelectorAll('[image1success]')[i].classList.remove('show'); sizeTips[i].classList.add('show'); break;          
+            } else document.querySelectorAll('[image1fail]')[i].classList.add('show'); document.querySelectorAll('[image1success]')[i].classList.remove('show'); /*sizeTips[i].classList.add('show');*/ break;          
         }  
         if(type == "image2") {
           if(data.size < 600001) {
@@ -559,7 +581,7 @@ async function createImage(file, type, i){
             document.querySelectorAll('[image2success]')[i].classList.add('show')
             image2 = JSON.stringify(data)
             break;
-            } else document.querySelectorAll('[image2fail]')[i].classList.add('show'); document.querySelectorAll('[image2success]')[i].classList.remove('show'); sizeTips[i].classList.add('show'); break;     
+            } else document.querySelectorAll('[image2fail]')[i].classList.add('show'); document.querySelectorAll('[image2success]')[i].classList.remove('show'); /*sizeTips[i].classList.add('show');*/ break;     
         }  
         if(type == "image3") {
           if(data.size < 600001) {
@@ -569,7 +591,7 @@ async function createImage(file, type, i){
             document.querySelectorAll('[image3success]')[i].classList.add('show')
             image3 = JSON.stringify(data)
             break;
-            } else document.querySelectorAll('[image3fail]')[i].classList.add('show'); document.querySelectorAll('[image3success]')[i].classList.remove('show'); sizeTips[i].classList.add('show'); break;     
+            } else document.querySelectorAll('[image3fail]')[i].classList.add('show'); document.querySelectorAll('[image3success]')[i].classList.remove('show'); /*sizeTips[i].classList.add('show');*/ break;     
         }  
         if(type == "image4") {
           if(data.size < 600001) {
@@ -579,7 +601,7 @@ async function createImage(file, type, i){
             document.querySelectorAll('[image4success]')[i].classList.add('show')
             image4 = JSON.stringify(data)
             break;
-            } else document.querySelectorAll('[image4fail]')[i].classList.add('show'); document.querySelectorAll('[image4success]')[i].classList.remove('show'); sizeTips[i].classList.add('show'); break;     
+            } else document.querySelectorAll('[image4fail]')[i].classList.add('show'); document.querySelectorAll('[image4success]')[i].classList.remove('show'); /*sizeTips[i].classList.add('show');*/ break;     
         }  
         if(type == "image5") {
           if(data.size < 600001) {
@@ -589,7 +611,7 @@ async function createImage(file, type, i){
             document.querySelectorAll('[image5success]')[i].classList.add('show')
             image5 = JSON.stringify(data)
             break;
-            } else document.querySelectorAll('[image5fail]')[i].classList.add('show'); document.querySelectorAll('[image5success]')[i].classList.remove('show'); sizeTips[i].classList.add('show'); break;     
+            } else document.querySelectorAll('[image5fail]')[i].classList.add('show'); document.querySelectorAll('[image5success]')[i].classList.remove('show'); /*sizeTips[i].classList.add('show');*/ break;     
         }  
         if(type == "image6") {
           if(data.size < 600001) {
@@ -599,7 +621,7 @@ async function createImage(file, type, i){
             document.querySelectorAll('[image6success]')[i].classList.add('show')
             image6 = JSON.stringify(data)
             break;
-            } else document.querySelectorAll('[image6fail]')[i].classList.add('show'); document.querySelectorAll('[image6success]')[i].classList.remove('show'); sizeTips[i].classList.add('show'); break;     
+            } else document.querySelectorAll('[image6fail]')[i].classList.add('show'); document.querySelectorAll('[image6success]')[i].classList.remove('show'); /*sizeTips[i].classList.add('show');*/ break;     
         }  
         if(type == "image7") {
           if(data.size < 600001) {
@@ -609,7 +631,7 @@ async function createImage(file, type, i){
             document.querySelectorAll('[image7success]')[i].classList.add('show')
             image7 = JSON.stringify(data)
             break;
-            } else document.querySelectorAll('[image7fail]')[i].classList.add('show'); document.querySelectorAll('[image7success]')[i].classList.remove('show'); sizeTips[i].classList.add('show'); break;     
+            } else document.querySelectorAll('[image7fail]')[i].classList.add('show'); document.querySelectorAll('[image7success]')[i].classList.remove('show'); /*sizeTips[i].classList.add('show');*/ break;     
         }  
         if(type == "image8") {
           if(data.size < 600001) {
@@ -619,7 +641,7 @@ async function createImage(file, type, i){
             document.querySelectorAll('[image8success]')[i].classList.add('show')
             image8 = JSON.stringify(data)
             break;
-            } else document.querySelectorAll('[image8fail]')[i].classList.add('show'); document.querySelectorAll('[image8success]')[i].classList.remove('show'); sizeTips[i].classList.add('show'); break;     
+            } else document.querySelectorAll('[image8fail]')[i].classList.add('show'); document.querySelectorAll('[image8success]')[i].classList.remove('show'); /*sizeTips[i].classList.add('show');*/ break;     
         }  
         if(type == "image9") {
           if(data.size < 600001) {
@@ -629,7 +651,7 @@ async function createImage(file, type, i){
             document.querySelectorAll('[image9success]')[i].classList.add('show')
             image9 = JSON.stringify(data)
             break;
-            } else document.querySelectorAll('[image9fail]')[i].classList.add('show'); document.querySelectorAll('[image9success]')[i].classList.remove('show'); sizeTips[i].classList.add('show'); break;     
+            } else document.querySelectorAll('[image9fail]')[i].classList.add('show'); document.querySelectorAll('[image9success]')[i].classList.remove('show'); /*sizeTips[i].classList.add('show');*/ break;     
         }  
         if(type == "image10") {
           if(data.size < 600001) {
@@ -639,7 +661,7 @@ async function createImage(file, type, i){
             document.querySelectorAll('[image10success]')[i].classList.add('show')
             image10 = JSON.stringify(data)
             break;
-            } else document.querySelectorAll('[image10fail]')[i].classList.add('show'); document.querySelectorAll('[image10success]')[i].classList.remove('show'); sizeTips[i].classList.add('show'); break;     
+            } else document.querySelectorAll('[image10fail]')[i].classList.add('show'); document.querySelectorAll('[image10success]')[i].classList.remove('show'); /*sizeTips[i].classList.add('show');*/ break;     
         }            
       }
       images = []
